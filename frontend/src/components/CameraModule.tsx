@@ -12,20 +12,17 @@ const CameraModule:FC = () => {
     setDataUri(dataUri);
   }
 
-  const isFullscreen=false;
   return (
     <div>
       {
         (dataUri)
           ? <ImagePreview dataUri={dataUri}
-            isFullscreen={isFullscreen}
           />
           : <Camera
           onTakePhotoAnimationDone = { (dataUri) => { handleTakePhotoAnimationDone(dataUri); } }
           isMaxResolution = {true}
           isImageMirror = {false}
           isSilentMode = {false}
-          isFullscreen = {false}
           sizeFactor = {1}
         />
       }
