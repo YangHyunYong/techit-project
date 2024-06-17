@@ -2,8 +2,13 @@ import { FC, useState } from "react"
 import Camera from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
 import ImagePreview from "./ImagePreview";
+import { Contract } from "ethers";
 
-const CameraModule:FC = () => {
+interface CameraModuleProps{
+  mintContract: Contract | null;
+}
+
+const CameraModule:FC<CameraModuleProps> = ({mintContract}) => {
   const [dataUri, setDataUri] = useState('');
 
 
@@ -16,7 +21,7 @@ const CameraModule:FC = () => {
     <div>
       {
         (dataUri)
-          ? <ImagePreview dataUri={dataUri}
+          ? <ImagePreview dataUri={dataUri} mintContract={mintContract}
           />
           : <Camera
           onTakePhotoAnimationDone = { (dataUri) => { handleTakePhotoAnimationDone(dataUri); } }

@@ -1,12 +1,14 @@
 import { Button, Flex, Image } from "@chakra-ui/react";
 import axios from "axios";
+import { Contract } from "ethers";
 import { FC, useState } from "react";
 
 interface ImagePreviewProps {
   dataUri: string;
+  mintContract: Contract | null;
 }
 
-export const ImagePreview: FC<ImagePreviewProps> = ({ dataUri }) => {
+export const ImagePreview: FC<ImagePreviewProps> = ({ dataUri, mintContract }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isDone, setIsDone] = useState<boolean>(false);
   const [imageUrl, setImageUrl] = useState<string>("");
@@ -109,7 +111,15 @@ export const ImagePreview: FC<ImagePreviewProps> = ({ dataUri }) => {
 
   const onClickMint = async () => {
     try {
-      await sendMetadata(imageUrl);
+      if(!mintContract) return;
+
+      const metadataUrl = await sendMetadata(imageUrl);
+
+      const response = await mintContract.mintNft(metadataUrl);
+
+      await response.wait();
+      
+      console.log(response);
     } catch (error) {
       console.error(error);
     }
