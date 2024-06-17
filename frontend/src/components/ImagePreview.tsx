@@ -9,12 +9,6 @@ interface ImagePreviewProps {
 export const ImagePreview: FC<ImagePreviewProps> = ({ dataUri }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isDone, setIsDone] = useState<boolean>(false);
-  const [metadata, setMetadata] = useState({
-    name: "이미지테스트",
-    description: "This is a sample description.",
-    image: "",
-    attributes: [{ trait_type: "Border", value: "Wood" }],
-  });
 
   const transferDataURI = async () => {
     setIsLoading(true);
@@ -31,10 +25,12 @@ export const ImagePreview: FC<ImagePreviewProps> = ({ dataUri }) => {
     // FormData 객체에 Blob 추가
     const formData = new FormData();
     formData.append("file", blob, `photo.png`);
-    // formData.append("pinataMetadata", "{\n  \"name\": \"Pinnie.json\"\n}");
-    // formData.append("pinataOptions", "{\n  \"cidVersion\": 1\n}");
 
-    sendImage(formData);
+    const imageUrl = await sendImage(formData);
+
+    const metadataUrl = await sendMetadata(imageUrl!);
+
+    console.log(metadataUrl);
   };
 
   const sendImage = async (formData: FormData) => {
@@ -54,24 +50,32 @@ export const ImagePreview: FC<ImagePreviewProps> = ({ dataUri }) => {
         }
       );
 
-      setMetadata((metadata) => ({
-        ...metadata,
-        image: `https://salmon-solid-tern-442.mypinata.cloud/ipfs/${response.data.IpfsHash}`,
-      }));
-
       setIsLoading(false);
       setIsDone(true);
+
+      return `https://salmon-solid-tern-442.mypinata.cloud/ipfs/${response.data.IpfsHash}`;
     } catch (error) {
       console.error("Error uploading to Pinata:", error);
       setIsLoading(false);
     }
   };
 
-  const sendMetadata = async (formData: FormData) => {
+  const sendMetadata = async (image: string) => {
     try {
+      const metadata = JSON.stringify({
+        pinataContent: {
+          name: "Test",
+          description: "Test",
+          image,
+        },
+        pinataMetadata: {
+          name: "test.json",
+        },
+      });
+
       const response = await axios.post(
         "https://api.pinata.cloud/pinning/pinFileToIPFS",
-        formData,
+        metadata,
         {
           headers: {
             Authorization: `Bearer ${import.meta.env.VITE_PINATA_JWT_TOKEN}`,
@@ -83,7 +87,8 @@ export const ImagePreview: FC<ImagePreviewProps> = ({ dataUri }) => {
           },
         }
       );
-      console.log(response.data);
+
+      return `https://salmon-solid-tern-442.mypinata.cloud/ipfs/${response.data.IpfsHash}`;
     } catch (error) {
       console.error(error);
     }
