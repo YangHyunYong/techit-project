@@ -1,6 +1,6 @@
 import { Button, Flex, Image } from "@chakra-ui/react";
 import axios from "axios";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 
 interface ImagePreviewProps {
   dataUri: string;
@@ -9,6 +9,7 @@ interface ImagePreviewProps {
 export const ImagePreview: FC<ImagePreviewProps> = ({ dataUri }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isDone, setIsDone] = useState<boolean>(false);
+  const [imageUrl, setImageUrl] = useState<string>("");
 
   const transferDataURI = async () => {
     setIsLoading(true);
@@ -28,9 +29,7 @@ export const ImagePreview: FC<ImagePreviewProps> = ({ dataUri }) => {
 
     const imageUrl = await sendImage(formData);
 
-    const metadataUrl = await sendMetadata(imageUrl!);
-
-    console.log(metadataUrl);
+    setImageUrl(imageUrl!);
   };
 
   const sendImage = async (formData: FormData) => {
@@ -53,6 +52,8 @@ export const ImagePreview: FC<ImagePreviewProps> = ({ dataUri }) => {
       setIsLoading(false);
       setIsDone(true);
 
+      console.log("꾸미기 완료");
+
       return `https://salmon-solid-tern-442.mypinata.cloud/ipfs/${response.data.IpfsHash}`;
     } catch (error) {
       console.error("Error uploading to Pinata:", error);
@@ -62,24 +63,30 @@ export const ImagePreview: FC<ImagePreviewProps> = ({ dataUri }) => {
 
   const sendMetadata = async (image: string) => {
     try {
+      setIsLoading(true);
+
       const metadata = JSON.stringify({
         pinataContent: {
           name: "Test",
           description: "Test",
           image,
+          attributes:[
+            {trait_type: "Border", value: "Wood"}
+          ]
         },
         pinataMetadata: {
           name: "test.json",
         },
       });
 
+
       const response = await axios.post(
-        "https://api.pinata.cloud/pinning/pinFileToIPFS",
+        "https://api.pinata.cloud/pinning/pinJSONToIPFS",
         metadata,
         {
           headers: {
             Authorization: `Bearer ${import.meta.env.VITE_PINATA_JWT_TOKEN}`,
-            "Content-Type": `multipart/form-data`,
+            "Content-Type": `application/json`,
             pinata_api_key: `${import.meta.env.VITE_PINATA_API_KEY}`,
             pinata_secret_api_key: `${
               import.meta.env.VITE_PINATA_SECRET_API_KEY
@@ -88,35 +95,25 @@ export const ImagePreview: FC<ImagePreviewProps> = ({ dataUri }) => {
         }
       );
 
+      setIsLoading(false);
+      
+      console.log("민팅완료");
+
       return `https://salmon-solid-tern-442.mypinata.cloud/ipfs/${response.data.IpfsHash}`;
     } catch (error) {
       console.error(error);
+      setIsLoading(false);
+
     }
   };
 
   const onClickMint = async () => {
     try {
-      // const response = await
+      await sendMetadata(imageUrl);
     } catch (error) {
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    if (!isDone) return;
-
-    const formData = new FormData();
-    formData.append("name", "이미지테스트");
-    formData.append("description", "This is a sample description.");
-
-    formData.append("image", metadata.image);
-
-    // attributes 배열을 JSON 문자열로 변환하여 추가
-    const attributes = [{ trait_type: "Border", value: "Wood" }];
-    formData.append("attributes", JSON.stringify(attributes));
-
-    sendMetadata(formData);
-  }, [isDone]);
 
   return (
     <Flex flexDir="column">
