@@ -1,14 +1,17 @@
 import { Flex, Grid, Text } from "@chakra-ui/react";
 import { FC, useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { OutletContext } from "../components/Layout";
 import SaleNftCard from "../components/SaleNftCard";
+import { CgArrowLeft } from "react-icons/cg";
 
 const SaleNft: FC = () => {
   const [tokenIds, setTokenIds] = useState<number[]>([]);
 
   const { signer, saleContract, mintContract } =
     useOutletContext<OutletContext>();
+
+  const navigate = useNavigate();
 
   const getOnSaleTokens = async () => {
     try {
@@ -31,32 +34,52 @@ const SaleNft: FC = () => {
   }, [saleContract]);
 
   return (
-    <Flex w="100%" alignItems="center" flexDir="column" gap={2} mt={8} mb={20}>
-      {signer ? (
-        <Grid
-          templateColumns={[
-            "repeat(1, 1fr)",
-            "repeat(1, 1fr)",
-            "repeat(2, 1fr)",
-          ]}
-          gap={6}
+    <>
+      <Flex position="absolute" top="20px" left="20px" gap={6} color="#101010">
+        <Flex
+          flexDir="column"
+          alignItems="center"
+          onClick={() => navigate("/")}
+          cursor="pointer"
         >
-          {tokenIds.map((v, i) => (
-            <SaleNftCard
-              key={i}
-              tokenId={v}
-              mintContract={mintContract}
-              saleContract={saleContract}
-              signer={signer}
-              tokenIds={tokenIds}
-              setTokenIds={setTokenIds}
-            />
-          ))}
-        </Grid>
-      ) : (
-        <Text>🦊 메타마스크 로그인이 필요합니다!</Text>
-      )}
-    </Flex>
+          <CgArrowLeft size={30} />
+          <Flex fontSize={12}>Back</Flex>
+        </Flex>
+      </Flex>
+      <Flex
+        w="100%"
+        alignItems="center"
+        flexDir="column"
+        gap={2}
+        mt={8}
+        mb={20}
+      >
+        {signer ? (
+          <Grid
+            templateColumns={[
+              "repeat(1, 1fr)",
+              "repeat(1, 1fr)",
+              "repeat(2, 1fr)",
+            ]}
+            gap={6}
+          >
+            {tokenIds.map((v, i) => (
+              <SaleNftCard
+                key={i}
+                tokenId={v}
+                mintContract={mintContract}
+                saleContract={saleContract}
+                signer={signer}
+                tokenIds={tokenIds}
+                setTokenIds={setTokenIds}
+              />
+            ))}
+          </Grid>
+        ) : (
+          <Text>🦊 메타마스크 로그인이 필요합니다!</Text>
+        )}
+      </Flex>
+    </>
   );
 };
 

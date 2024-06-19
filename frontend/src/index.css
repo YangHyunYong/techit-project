@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bordered-box {
+    @apply bg-white relative border-4 border-transparent;
+    padding: 20px;
+    clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+    background-clip: padding-box;
+    box-shadow: 0 0 0 10px black;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.bg-custom {
+    @apply bg-cover bg-center bg-no-repeat;
+    background-image: url('/frontend/public/images/back2.png');
+    /* 이미지 경로는 실제 파일명과 일치해야 합니다 */
+}

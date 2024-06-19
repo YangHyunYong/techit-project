@@ -1,12 +1,13 @@
 import { Button, Flex, Grid, Text } from "@chakra-ui/react";
 import { FC, useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { OutletContext } from "../components/Layout";
 import axios from "axios";
 import { saleContractAddress } from "../contractAddress";
 import NftCard from "../components/NftCard";
+import { CgArrowLeft } from "react-icons/cg";
 
-const PAGE = 3;
+const PAGE = 4;
 
 const MyNft: FC = () => {
   const [nftMetadataArray, setNftMetadataArray] = useState<NftMetadata[]>([]);
@@ -20,6 +21,8 @@ const MyNft: FC = () => {
 
   const { mintContract, signer, saleContract } =
     useOutletContext<OutletContext>();
+
+  const navigate = useNavigate();
 
   const getBalanceOf = async () => {
     try {
@@ -124,6 +127,17 @@ const MyNft: FC = () => {
 
   return (
     <Flex w="100%" alignItems="center" flexDir="column" gap={2} mt={8} mb={20}>
+      <Flex position="absolute" top="20px" left="20px" gap={6} color="#101010">
+        <Flex
+          flexDir="column"
+          alignItems="center"
+          onClick={() => navigate("/")}
+          cursor="pointer"
+        >
+          <CgArrowLeft size={30} />
+          <Flex fontSize={12}>Back</Flex>
+        </Flex>
+      </Flex>
       {signer ? (
         <>
           <Flex alignItems="center" gap={2}>

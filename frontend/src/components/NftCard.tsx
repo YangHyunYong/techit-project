@@ -47,11 +47,12 @@ const NftCard: FC<NftCardProps> = ({
 
   const onClickSetForSaleNft = async () => {
     try {
+      console.log("등록");
       if (!salePrice || isNaN(Number(salePrice))) return;
 
       setIsLoading(true);
 
-      const response = await saleContract?.setForSaleNft(
+      const response = await saleContract?.setSale(
         tokenId,
         parseEther(salePrice)
       );

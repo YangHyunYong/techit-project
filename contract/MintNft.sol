@@ -5,29 +5,30 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract MintNft is ERC721Enumerable {
+contract MintNft is ERC721Enumerable, Ownable {
     uint lastMintTime;
     uint mintTimeInterval = 60;
 
+    string metaAnswerUri;
     mapping(uint => string) metadataUri;
 
     constructor(
         string memory _name,
         string memory _symbol
-    ) ERC721(_name, _symbol) {}
+    ) ERC721(_name, _symbol) Ownable(msg.sender) {}
+
+    function setAnswer(string memory _metaAnswerUri) public onlyOwner {
+        metaAnswerUri = _metaAnswerUri;
+    }
+
+    function getAnswer() public view returns(string memory){
+        return metaAnswerUri;
+    }
 
     function mintNft(string memory _metadataUri) public {
-        //발행 후 5분 후에 가능하도록
-        require(
-            block.timestamp >= lastMintTime + mintTimeInterval,
-            "Minting not allowed yet. Please wait for 1 minutes."
-        );
-
         uint tokenId = totalSupply() + 1;
 
         _mint(msg.sender, tokenId);
-
-        lastMintTime = block.timestamp;
 
         metadataUri[tokenId] = _metadataUri;
     }

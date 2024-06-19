@@ -1,18 +1,15 @@
-import { Button, Flex, Image, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react"
-import { JsonRpcSigner } from "ethers"
-import { Dispatch, FC, SetStateAction } from "react"
-import { useNavigate } from "react-router-dom";
+import { Button, Flex, Image, Menu, MenuButton } from "@chakra-ui/react";
+import { JsonRpcSigner } from "ethers";
+import { Dispatch, FC, SetStateAction } from "react";
 
-interface HeaderProps{
+interface HeaderProps {
   signer: JsonRpcSigner | null;
   setSigner: Dispatch<SetStateAction<JsonRpcSigner | null>>;
 }
 
-const Header:FC<HeaderProps> = ({signer,setSigner}) => {
-  const navigate = useNavigate();
-
+const Header: FC<HeaderProps> = ({ signer, setSigner }) => {
   return (
-    <Flex h={24} justifyContent="space-between">
+    <Flex h={16} justifyContent="space-between">
       <Flex
         flexDir={["column", "column", "row"]}
         w={40}
@@ -20,51 +17,24 @@ const Header:FC<HeaderProps> = ({signer,setSigner}) => {
         fontWeight="semibold"
         alignItems="center"
       >
-        <Image w={16} src="/images/logo.svg" alt="TIMING" /> TIMING
+        <Image w={16} src="/images/logo.svg" alt="logo" /> Slot
       </Flex>
-      <Flex alignItems="center" gap={[2, 2, 4]}>
-        <Button
-          variant="link"
-          colorScheme="green"
-          onClick={() => navigate("/")}
-          size={["xs", "xs", "md"]}
-        >
-          홈
-        </Button>
-        <Button
-          variant="link"
-          colorScheme="green"
-          onClick={() => navigate("/my-nft")}
-          size={["xs", "xs", "md"]}
-        >
-          내 NFT
-        </Button>
-        <Button
-          variant="link"
-          colorScheme="green"
-          onClick={() => navigate("/sale-nft")}
-          size={["xs", "xs", "md"]}
-        >
-          마켓
-        </Button>
-      </Flex>
-      <Flex w={40} justifyContent="end" alignItems="center">
+      <Flex w={40} justifyContent="end" alignItems="center" mr="16px">
         {signer && (
           <Menu>
-            <MenuButton size={["xs", "xs", "md"]} as={Button}>
+            <MenuButton
+              size={["xs", "xs", "md"]}
+              as={Button}
+              onClick={() => setSigner(null)}
+            >
               {signer.address.substring(0, 5)}...
               {signer.address.substring(signer.address.length - 5)}
             </MenuButton>
-            <MenuList minW={[20, 20, 40]}>
-              <MenuItem fontSize={[8, 8, 12]} onClick={() => setSigner(null)}>
-                Log Out
-              </MenuItem>
-            </MenuList>
           </Menu>
         )}
       </Flex>
     </Flex>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

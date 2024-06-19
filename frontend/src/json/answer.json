@@ -1,0 +1,13 @@
+{
+  "name": "bored face",
+  "description": "눈썹은 올라갔지만 지루해하는 눈과 이상한 입이 조화를 이루는 얼굴입니다.",
+  "image": "https://salmon-solid-tern-442.mypinata.cloud/ipfs/QmdNgStoks4SJ9PEbvE7citw24chokD6WtRAbivTydZZj2",
+  "attributes": [
+    { "trait_type": "background", "value": "ffffff" },
+    { "trait_type": "brows", "value": "variant01" },
+    { "trait_type": "eyes", "value": "variant01" },
+    { "trait_type": "glasses", "value": "variant11" },
+    { "trait_type": "lips", "value": "variant07" },
+    { "trait_type": "nose", "value": "variant13" }
+  ]
+}

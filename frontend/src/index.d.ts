@@ -11,10 +11,17 @@ interface NftMetadata {
       value: string;
     }[];
   }
-  
 
   interface SaleNftMetadata extends NftMetadata {
     price: bigint;
     tokenOwner: string;
   }
-  
+
+interface RollAvatar{
+    brows: string[];
+    eyes: string[];
+    background: string[];
+    glasses: string[];
+    lips: string[];
+    nose: string[];
+  }
