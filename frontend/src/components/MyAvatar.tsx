@@ -1,4 +1,4 @@
-import { Button, Flex, Image, useDisclosure } from "@chakra-ui/react";
+import { Button, Flex, useDisclosure } from "@chakra-ui/react";
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import SelectedAvatar from "./SelectedAvatar";
 import MintModal from "./MintModal";
