@@ -1,4 +1,4 @@
-import { Button, Flex, Image } from "@chakra-ui/react";
+import { Flex, Image } from "@chakra-ui/react";
 import { FC, useEffect, useState } from "react";
 
 const images = [
@@ -12,6 +12,9 @@ const images = [
   "./images/avatars/8.png",
   "./images/avatars/9.png",
   "./images/avatars/10.png",
+  "./images/avatars/11.png",
+  "./images/avatars/12.png",
+  "./images/avatars/13.png",
 ];
 
 interface NotSelectedAvatarProps {

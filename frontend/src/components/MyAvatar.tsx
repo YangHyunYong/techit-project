@@ -84,14 +84,16 @@ const MyAvatar: FC<MyAvatarProps> = ({
     setLips(newLips);
     setNose(newNose);
 
-    setRollAvatar({
-      brows: [AVATAR_OPTION.brows[1]],
-      eyes: [AVATAR_OPTION.eyes[0]],
-      background: [AVATAR_OPTION.background[1]],
-      glasses: [AVATAR_OPTION.glasses[0]],
-      lips: [AVATAR_OPTION.lips[3]],
-      nose: [AVATAR_OPTION.nose[1]],
-    });
+    if (!isStop) {
+      setRollAvatar({
+        brows: [AVATAR_OPTION.brows[1]],
+        eyes: [AVATAR_OPTION.eyes[0]],
+        background: [AVATAR_OPTION.background[1]],
+        glasses: [AVATAR_OPTION.glasses[0]],
+        lips: [AVATAR_OPTION.lips[3]],
+        nose: [AVATAR_OPTION.nose[1]],
+      });
+    }
 
     // setRollAvatar({
     //   brows: [AVATAR_OPTION.brows[newBrows]],
@@ -108,10 +110,11 @@ const MyAvatar: FC<MyAvatarProps> = ({
 
     let cnt = 0;
 
-    answer.attributes?.map((v, i) => {
-      if (
-        rollAvatar[answer.attributes[i].trait_type.toLowerCase()][0] === v.value
-      ) {
+    answer.attributes!.map((v, i) => {
+      const traitType = answer.attributes![
+        i
+      ].trait_type.toLowerCase() as keyof RollAvatar;
+      if (rollAvatar && rollAvatar[traitType][0] === v.value) {
         cnt += 1;
       }
       if (cnt == 6) {
@@ -151,8 +154,11 @@ const MyAvatar: FC<MyAvatarProps> = ({
               <Flex>Press the Start Button</Flex>
             </Flex>
           )}
-
-          <SelectedAvatar rollAvatar={rollAvatar} />
+          <SelectedAvatar
+            isSelected={isSelected}
+            answer={answer}
+            rollAvatar={rollAvatar}
+          />
         </>
       ) : (
         <NotSelectedAvatar isStop={isStop} />
