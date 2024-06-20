@@ -38,7 +38,7 @@ const Home: FC = () => {
     try {
       // const response = await mintContract.getAnswer();
       const response =
-        "https://salmon-solid-tern-442.mypinata.cloud/ipfs/QmPfcRYHSJGBiZshxvWDNnsimS2Vjg525HEcripyi84ZVz";
+        "https://salmon-solid-tern-442.mypinata.cloud/ipfs/QmZTMr8pKia1HH5m7c5f1CSTyTDFnRBeNuNjn6Xk4fRBCY";
 
       const result = await axios.get<NftMetadata>(response);
 

@@ -31,7 +31,7 @@ const Layout: FC = () => {
       <Header signer={signer} setSigner={setSigner} />
       <Flex flexGrow={1} position="relative">
         <Image
-          src="/public/images/back2.png"
+          src={`${process.env.PUBLIC_URL}/images/back2.png`}
           position="absolute"
           top={0}
           left={0}
