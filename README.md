@@ -5,6 +5,8 @@
 
 Part2에서 학습한 React, Typescript, NFT 발행, 거래 기능을 dicebear 오픈소스 아바타 라이브러리를 사용해 적용하고자 했습니다.
 
+[배포 링크](https://techit-project.vercel.app/)
+
 ## 주요 기능
 
 ---
