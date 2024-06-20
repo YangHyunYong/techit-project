@@ -1,4 +1,4 @@
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c69962b0-3951-485b-b10a-5bb29576bba8/0b5f88ca-d4a7-4fe2-add4-b040868ce5b1/Untitled.png)
+![image](https://github.com/YangHyunYong/file-upload-minting/assets/43340172/dffacb51-cb8d-4ab5-bd85-b9677589376a)
 ## 기획 의도
 
 ---
@@ -11,19 +11,19 @@ Part2에서 학습한 React, Typescript, NFT 발행, 거래 기능을 dicebear �
 
 1. Slot 게임 - insert coin 후 Slot 게임 진행 가능
     
-    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c69962b0-3951-485b-b10a-5bb29576bba8/60da83d7-1936-4ff3-85ce-a0a2c197360b/Untitled.png)
+    ![image](https://github.com/YangHyunYong/file-upload-minting/assets/43340172/3cd4a826-0775-4bac-af79-aa1de37be9cc)
     
 2. NFT 발행 - Face NFT 민팅 가능
     
-    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c69962b0-3951-485b-b10a-5bb29576bba8/6a773f05-dba0-4af2-8977-67cdbafc0ed1/Untitled.png)
+    ![image](https://github.com/YangHyunYong/file-upload-minting/assets/43340172/3b4ada12-4ab9-488f-a012-3902636cdd38)
     
 3. NFT 거래 등록
     
-    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c69962b0-3951-485b-b10a-5bb29576bba8/5f418e83-fb3a-42e4-a14e-1c1017fea8a3/Untitled.png)
+    ![image](https://github.com/YangHyunYong/file-upload-minting/assets/43340172/a9cdf7fe-7985-441c-b321-e318cb55ae02)
     
 4. NFT 구매
     
-    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c69962b0-3951-485b-b10a-5bb29576bba8/08c8b8bb-23e2-4e28-983d-c6c4caa46573/Untitled.png)
+    ![image](https://github.com/YangHyunYong/file-upload-minting/assets/43340172/f79c6495-3862-47a3-af83-f0e40eb22c81)
     
 
 ## 특이사항
